@@ -1,0 +1,272 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="正则表达式"><meta name="keywords" content="JavaScript,正则表达式"><meta name="author" content="吕钒,15757856604@163.com"><meta name="copyright" content="lvfan"><title>正则表达式【吕钒的后花园】</title><link rel="stylesheet" href="/css/fan.css"><link rel="stylesheet" href="/css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><!-- script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")--><script src="/js/mathjax/mathjax.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+});
+</script><script>var isPassword = '' || false;
+if (isPassword) {
+    if (prompt('请输入文章密码') !== '') {
+        alert('密码错误！');
+        history.back();
+    }
+}</script><script>window.GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"DDS7QLTFBR","apiKey":"4e05b9f66dc7fb2160aef36bd87ecc5a","indexName":"lvfan","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+}</script></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是正则表达式："><span class="toc-number">1.</span> <span class="toc-text">什么是正则表达式：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用的元字符"><span class="toc-number">2.</span> <span class="toc-text">常用的元字符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用的限定符"><span class="toc-number">3.</span> <span class="toc-text">常用的限定符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用的反义代码"><span class="toc-number">4.</span> <span class="toc-text">常用的反义代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用分组语法"><span class="toc-number">5.</span> <span class="toc-text">常用分组语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#贪婪匹配："><span class="toc-number">6.</span> <span class="toc-text">贪婪匹配：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#懒惰匹配："><span class="toc-number">7.</span> <span class="toc-text">懒惰匹配：</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">吕钒</div><div class="author-info-description">心之所向 素履以往 生如逆旅 一苇以航</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/fan-lv" target="_blank">GitHub<i class="icon-dot bg-color2"></i></a><a class="links-button button-hover" href="mailto:15757856604@163.com" target="_blank">E-Mail<i class="icon-dot bg-color2"></i></a><a class="links-button button-hover" href="tencent://message/?uin=1019593584&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color7"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">34</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">20</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">10</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">吕钒的后花园</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">正则表达式</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2018-06-11 | 更新于 2019-02-13</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/前端资料/">前端资料</a><i class="fa fa-angle-right" style="margin: 0 8px;"></i><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/前端资料/JavaScript/">JavaScript</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/JavaScript/">JavaScript</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/正则表达式/">正则表达式</a></div></div></div><div class="main-content"><h2 id="什么是正则表达式："><a href="#什么是正则表达式：" class="headerlink" title="什么是正则表达式："></a>什么是正则表达式：</h2><p>查找符合某些复杂规则的字符串。正则表达式就是用于描述这些规则的工具。换句话说，正则表达式就是记录文本规则的代码。</p>
+<p>例：查找 hi：</p>
+<pre><code>\bhi\b
+</code></pre><p>\b 用于匹配一个位置，指 hi 前面或后面没有字符（匹配单词的开始或结束）</p>
+<p>例：查找 hi 后面不远处跟着一个 Lucy：</p>
+<pre><code>\bhi\b.*\bLucy\b
+</code></pre><p>. 是一个元字符，用于匹配除换行符外的任意字符<br>.* 表示任意数量的不包含换行的字符</p>
+<p>例：0\d\d-\d\d\d\d\d\d\d\d 以 0 开头，然后两个数字，-，最后 8 个数字</p>
+<p> （012-12345678）——&gt; 可以简写成 0\d{2}-\d{8}</p>
+<p>例：简单的 IP 地址分配</p>
+<pre><code>(\d{1,3}\.){3}\d{1,3}——a.b.c.d
+</code></pre><p>\d{1,3}匹配 1 到 3 位数字，.匹配一个点（.），(\d{1,3}.){3}重复三次<br>abcd 数值处于 0-255</p>
+<pre><code>((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}((2[0-4]\d|25[0-5]|[01]?\d\d?))
+2[0-4]\d——匹配200-249之间的数值
+25[0-5]——匹配250-255之间的数值
+[01]?\d\d?——匹配0-199之间的数值
+
+\b(\w+)\b\s+\1\b可以用来匹配重复的单词，像go go, 或者kitty kitty。
+</code></pre><p>这个表达式首先是一个单词，也就是单词开始处和结束处之间的多于一个的字母或数字(\b(\w+)\b)，这个单词会被捕获到编号为 1 的分组中，然后是 1 个或几个空白符(\s+)，最后是分组 1 中捕获的内容（也就是前面匹配的那个单词）(\1)</p>
+<a id="more"></a>
+<h2 id="常用的元字符"><a href="#常用的元字符" class="headerlink" title="常用的元字符"></a>常用的元字符</h2><table>
+<thead>
+<tr>
+<th>代码</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.</td>
+<td>匹配除换行符以外的任意字符</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>匹配字母或数字或下划线或汉字</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配任意的空白符</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>匹配数字</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>匹配单词的开始或结束</td>
+</tr>
+<tr>
+<td>^</td>
+<td>匹配字符串的开始</td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配字符串的结束</td>
+</tr>
+</tbody>
+</table>
+<p>如果要查找元字符本身，就要用\来取消定义<br>如：查找. 用. 查找* 用* 查找\ 用\<br>[0-9]=\d</p>
+<h2 id="常用的限定符"><a href="#常用的限定符" class="headerlink" title="常用的限定符"></a>常用的限定符</h2><table>
+<thead>
+<tr>
+<th>代码/语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>*</td>
+<td>重复零次或更多次</td>
+</tr>
+<tr>
+<td>+</td>
+<td>重复一次或更多次</td>
+</tr>
+<tr>
+<td>?</td>
+<td>重复零次或一次</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>重复 n 次</td>
+</tr>
+<tr>
+<td>{n,}</td>
+<td>重复 n 次或更多次</td>
+</tr>
+<tr>
+<td>{n,m}</td>
+<td>重复 n 到 m 次</td>
+</tr>
+</tbody>
+</table>
+<h2 id="常用的反义代码"><a href="#常用的反义代码" class="headerlink" title="常用的反义代码"></a>常用的反义代码</h2><table>
+<thead>
+<tr>
+<th>代码/语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\W</td>
+<td>匹配任意不是字母，数字，下划线，汉字的字符</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>匹配任意不是空白符的字符</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>匹配任意非数字的字符</td>
+</tr>
+<tr>
+<td>\B</td>
+<td>匹配不是单词开头或结束的位置</td>
+</tr>
+<tr>
+<td>[^x]</td>
+<td>匹配除了 x 以外的任意字符</td>
+</tr>
+<tr>
+<td>[^aeiou]</td>
+<td>匹配除了 aeiou 这几个字母以外的任意字符</td>
+</tr>
+</tbody>
+</table>
+<h2 id="常用分组语法"><a href="#常用分组语法" class="headerlink" title="常用分组语法"></a>常用分组语法</h2><table>
+<thead>
+<tr>
+<th>分类</th>
+<th>代码/语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>捕获</td>
+<td>(exp)</td>
+<td>匹配 exp,并捕获文本到自动命名的组里</td>
+</tr>
+<tr>
+<td>-</td>
+<td>(?<name>exp)</name></td>
+<td>匹配 exp,并捕获文本到名称为 name 的组里，也可以写成(?’name’exp)</td>
+</tr>
+<tr>
+<td>-</td>
+<td>(?:exp)</td>
+<td>匹配 exp,不捕获匹配的文本，也不给此分组分配组号</td>
+</tr>
+<tr>
+<td>零宽断言</td>
+<td>(?=exp)</td>
+<td>匹配 exp 前面的位置</td>
+</tr>
+<tr>
+<td>-</td>
+<td>(?=exp)</td>
+<td>匹配 exp 后面的位置</td>
+</tr>
+<tr>
+<td>-</td>
+<td>(?!exp)</td>
+<td>匹配后面跟的不是 exp 的位置</td>
+</tr>
+<tr>
+<td>-</td>
+<td>(?&lt;!exp)</td>
+<td>匹配前面不是 exp 的位置</td>
+</tr>
+<tr>
+<td>注释</td>
+<td>(?#comment)</td>
+<td>这种类型的分组不对正则表达式的处理产生任何影响，用于提供注释让人阅读</td>
+</tr>
+</tbody>
+</table>
+<pre><code>\b\w+(?=ing\b) 匹配以ing结尾的单词的前面部分（不包含ing）  
+(?&lt;=bre)\w+\b 匹配以re开头的单词的后半部分（不包含bre）  
+(?&lt;=\s)\d+(?=\s) 匹配以空白字符间隔的数字（不包含这些空白字符）  
+\b\w*q[^u]\w*\b
+匹配包含后面不是字母u的字母q的单词。
+但是如果q出现在单词的结尾的话，像Iraq,Benq，这个表达式就会出错。
+这是因为[^u]总要匹配一个字符，所以如果q是单词的最后一个字符的话，后面的[^u]将会匹配q后面的单词分隔符(可能是空格，或者是句号或其它的什么)，后面的\w*\b将会匹配下一个单词，于是\b\w*q[^u]\w*\b就能匹配整个Iraq fighting。
+负向零宽断言能解决这样的问题，因为它只匹配一个位置，并不消费任何字符。
+现在，我们可以这样来解决这个问题：\b\w*q(?!u)\w*\b。
+</code></pre><h2 id="贪婪匹配："><a href="#贪婪匹配：" class="headerlink" title="贪婪匹配："></a>贪婪匹配：</h2><p>a.*b 会匹配最长的以 a 开始，b 结束的字符串，比如 aabab，结果是 aabab。</p>
+<h2 id="懒惰匹配："><a href="#懒惰匹配：" class="headerlink" title="懒惰匹配："></a>懒惰匹配：</h2><p>a.*?b 如 aabab，结果是 aab（第一个字符到第三个字符）和 ab（第四个到第五个字符）；为什么是 aab 而不是 ab（第二到第三个字符），因为正则表达式有一条规则：最先开始匹配拥有最高优先级。</p>
+<ol>
+<li><p>校验密码强度<br> 密码的强度必须是包含大小写字母和数字的组合，不能使用特殊字符，长度在 8-10 之间。</p>
+ <figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^<span class="comment">(?=.*\\d)</span><span class="comment">(?=.*[a-z])</span><span class="comment">(?=.*[A-Z])</span>.&#123;<span class="number">8</span>,<span class="number">10</span>&#125;$</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>校验中文<br>字符串仅能是中文。</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^[<span class="symbol">\\</span>u4e00-<span class="symbol">\\</span>u9fa5]&#123;0,&#125;$</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>由数字、26 个英文字母或下划线组成的字符串</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^\\w+<span class="symbol">$</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>校验 E-Mail 地址<br>同密码一样，下面是 E-mail 地址合规性的正则检查语句。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">\\w!#$%&amp;'*+/=?^_`&#123;|&#125;~-</span>]+(?:\\.[<span class="string">\\w!#$%&amp;'*+/=?^_`&#123;|&#125;~-</span>]+)<span class="emphasis">*@(?:[\\w](?:[\\w-]*</span>[<span class="string">\\w</span>])?\\.)+[<span class="string">\\w</span>](<span class="link">?:[\\w-]*[\\w]</span>)?</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>校验身份证号码<br>下面是身份证号码的正则校验。15 或 18 位。<br>15 位：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^[<span class="number">1</span><span class="number">-9</span>]\\d&#123;<span class="number">7</span>&#125;((<span class="number">0</span>\\d)|(<span class="number">1</span>[<span class="number">0</span><span class="number">-2</span>]))(([<span class="number">0</span>|<span class="number">1</span>|<span class="number">2</span>]\\d)|<span class="number">3</span>[<span class="number">0</span><span class="number">-1</span>])\\d&#123;<span class="number">3</span>&#125;$</span><br></pre></td></tr></table></figure>
+<p>18 位：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^[<span class="number">1</span><span class="number">-9</span>]\\d&#123;<span class="number">5</span>&#125;[<span class="number">1</span><span class="number">-9</span>]\\d&#123;<span class="number">3</span>&#125;((<span class="number">0</span>\\d)|(<span class="number">1</span>[<span class="number">0</span><span class="number">-2</span>]))(([<span class="number">0</span>|<span class="number">1</span>|<span class="number">2</span>]\\d)|<span class="number">3</span>[<span class="number">0</span><span class="number">-1</span>])\\d&#123;<span class="number">3</span>&#125;([<span class="number">0</span><span class="number">-9</span>]|X)$</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>校验日期<br>“yyyy-mm-dd“ 格式的日期校验，已考虑平闰年。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(?:(?!0000)[<span class="string">0-9</span>]&#123;4&#125;-(?:(?:0[<span class="string">1-9</span>]|1[<span class="string">0-2</span>])-(?:0[<span class="string">1-9</span>]|1[<span class="string">0-9</span>]|2[<span class="string">0-8</span>])|(?:0[<span class="string">13-9</span>]|1[<span class="string">0-2</span>])-(?:29|30)|(?:0[<span class="string">13578</span>]|1[<span class="string">02</span>])-31)|(?:[<span class="string">0-9</span>]&#123;2&#125;(?:0[<span class="string">48</span>]|[<span class="string">2468</span>][<span class="symbol">048</span>]|[<span class="string">13579</span>][<span class="symbol">26</span>])|(?:0[<span class="string">48</span>]|[<span class="string">2468</span>][<span class="symbol">048</span>]|[<span class="string">13579</span>][<span class="symbol">26</span>])00)-02-29)$</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>校验金额<br>金额校验，精确到 2 位小数。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^[<span class="number">0</span><span class="number">-9</span>]+(.[<span class="number">0</span><span class="number">-9</span>]&#123;<span class="number">2</span>&#125;)?$</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>校验手机号<br>下面是国内 13、15、18 开头的手机号正则表达式。（可根据目前国内收集号扩展前两位开头号码）</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(<span class="number">13</span>[<span class="number">0</span><span class="number">-9</span>]|<span class="number">14</span>[<span class="number">5</span>|<span class="number">7</span>]|<span class="number">15</span>[<span class="number">0</span>|<span class="number">1</span>|<span class="number">2</span>|<span class="number">3</span>|<span class="number">5</span>|<span class="number">6</span>|<span class="number">7</span>|<span class="number">8</span>|<span class="number">9</span>]|<span class="number">18</span>[<span class="number">0</span>|<span class="number">1</span>|<span class="number">2</span>|<span class="number">3</span>|<span class="number">5</span>|<span class="number">6</span>|<span class="number">7</span>|<span class="number">8</span>|<span class="number">9</span>])\\d&#123;<span class="number">8</span>&#125;$</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>判断 IE 的版本<br>IE 目前还没被完全取代，很多页面还是需要做版本兼容，下面是 IE 版本检查的表达式。</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^.*MSIE <span class="string">[5-8]</span>(?:\\.<span class="string">[0-9]</span>+)?(?!.*Trident\\/<span class="string">[5-9]</span>\\.<span class="number">0</span>).*$</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>校验 IP-v4 地址<br>IP4 正则语句。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\\b(?:(?:25[<span class="string">0-5</span>]|2[<span class="string">0-4</span>][<span class="symbol">0-9</span>]|[<span class="string">01</span>]?[<span class="string">0-9</span>][<span class="symbol">0-9</span>]?)\\.)&#123;3&#125;(?:25[<span class="string">0-5</span>]|2[<span class="string">0-4</span>][<span class="symbol">0-9</span>]|[<span class="string">01</span>]?[<span class="string">0-9</span>][<span class="symbol">0-9</span>]?)\\b</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>校验 IP-v6 地址<br>IP6 正则语句。</p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(([<span class="name">0-9a-fA-F</span>]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;:)&#123;<span class="number">7</span>,<span class="number">7</span>&#125;[<span class="name">0-9a-fA-F</span>]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;|([<span class="name">0-9a-fA-F</span>]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;:)&#123;<span class="number">1</span>,<span class="number">7</span>&#125;:|([<span class="name">0-9a-fA-F</span>]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;:)&#123;<span class="number">1</span>,<span class="number">6</span>&#125;:[<span class="name">0-9a-fA-F</span>]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;|([<span class="name">0-9a-fA-F</span>]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;:)&#123;<span class="number">1</span>,<span class="number">5</span>&#125;(<span class="name">:</span>[<span class="name">0-9a-fA-F</span>]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;)&#123;<span class="number">1</span>,<span class="number">2</span>&#125;|([<span class="name">0-9a-fA-F</span>]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;:)&#123;<span class="number">1</span>,<span class="number">4</span>&#125;(<span class="name">:</span>[<span class="name">0-9a-fA-F</span>]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;)&#123;<span class="number">1</span>,<span class="number">3</span>&#125;|([<span class="name">0-9a-fA-F</span>]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;:)&#123;<span class="number">1</span>,<span class="number">3</span>&#125;(<span class="name">:</span>[<span class="name">0-9a-fA-F</span>]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;)&#123;<span class="number">1</span>,<span class="number">4</span>&#125;|([<span class="name">0-9a-fA-F</span>]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;:)&#123;<span class="number">1</span>,<span class="number">2</span>&#125;(<span class="name">:</span>[<span class="name">0-9a-fA-F</span>]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;)&#123;<span class="number">1</span>,<span class="number">5</span>&#125;|[<span class="name">0-9a-fA-F</span>]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;:((<span class="name">:</span>[<span class="name">0-9a-fA-F</span>]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;)&#123;<span class="number">1</span>,<span class="number">6</span>&#125;)|:((<span class="name">:</span>[<span class="name">0-9a-fA-F</span>]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;)&#123;<span class="number">1</span>,<span class="number">7</span>&#125;|:)|fe80:(<span class="name">:</span>[<span class="name">0-9a-fA-F</span>]&#123;<span class="number">0</span>,<span class="number">4</span>&#125;)&#123;<span class="number">0</span>,<span class="number">4</span>&#125;%[<span class="name">0-9a-zA-Z</span>]&#123;<span class="number">1</span>,&#125;|::(<span class="name">ffff</span>(<span class="name">:0</span>&#123;<span class="number">1</span>,<span class="number">4</span>&#125;)&#123;<span class="number">0</span>,<span class="number">1</span>&#125;:)&#123;<span class="number">0</span>,<span class="number">1</span>&#125;((<span class="name">25</span>[<span class="name">0-5</span>]|(<span class="name">2</span>[<span class="name">0-4</span>]|<span class="number">1</span>&#123;<span class="number">0</span>,<span class="number">1</span>&#125;[<span class="name">0-9</span>])&#123;<span class="number">0</span>,<span class="number">1</span>&#125;[<span class="name">0-9</span>])\\.)&#123;<span class="number">3</span>,<span class="number">3</span>&#125;(<span class="name">25</span>[<span class="name">0-5</span>]|(<span class="name">2</span>[<span class="name">0-4</span>]|<span class="number">1</span>&#123;<span class="number">0</span>,<span class="number">1</span>&#125;[<span class="name">0-9</span>])&#123;<span class="number">0</span>,<span class="number">1</span>&#125;[<span class="name">0-9</span>])|([<span class="name">0-9a-fA-F</span>]&#123;<span class="number">1</span>,<span class="number">4</span>&#125;:)&#123;<span class="number">1</span>,<span class="number">4</span>&#125;:((<span class="name">25</span>[<span class="name">0-5</span>]|(<span class="name">2</span>[<span class="name">0-4</span>]|<span class="number">1</span>&#123;<span class="number">0</span>,<span class="number">1</span>&#125;[<span class="name">0-9</span>])&#123;<span class="number">0</span>,<span class="number">1</span>&#125;[<span class="name">0-9</span>])\\.)&#123;<span class="number">3</span>,<span class="number">3</span>&#125;(<span class="name">25</span>[<span class="name">0-5</span>]|(<span class="name">2</span>[<span class="name">0-4</span>]|<span class="number">1</span>&#123;<span class="number">0</span>,<span class="number">1</span>&#125;[<span class="name">0-9</span>])&#123;<span class="number">0</span>,<span class="number">1</span>&#125;[<span class="name">0-9</span>]))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检查 URL 的前缀<br>应用开发中很多时候需要区分请求是 HTTPS 还是 HTTP，通过下面的表达式可以取出一个 url 的前缀然后再逻辑判断。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!s.match(<span class="regexp">/^[a-zA-Z]+:\\/</span>\\<span class="comment">//))</span></span><br><span class="line">&#123;</span><br><span class="line">    s = <span class="string">'http://'</span> + s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>提取 URL 链接<br>下面的这个表达式可以筛选出一段文本中的 URL。</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(f|ht)&#123;1&#125;(tp|tps):<span class="symbol">\\</span>/<span class="symbol">\\</span>/([<span class="symbol">\\</span>w-]+<span class="symbol">\\</span>.)+[<span class="symbol">\\</span>w-]+(<span class="symbol">\\</span>/[<span class="symbol">\\</span>w- ./?<span class="variable">%&amp;=]*)?</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文件路径及扩展名校验<br>验证 windows 下文件路径和扩展名（下面的例子中为.txt 文件）</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^([a-zA-Z]<span class="symbol">\\</span>:|<span class="symbol">\\</span><span class="symbol">\\</span>)<span class="symbol">\\</span><span class="symbol">\\</span>([^<span class="symbol">\\</span><span class="symbol">\\</span>]+<span class="symbol">\\</span><span class="symbol">\\</span>)*[^<span class="symbol">\\</span>/:*?"&lt;&gt;|]+<span class="symbol">\\</span>.txt(l)?$</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>提取 Color Hex Codes<br>有时需要抽取网页中的颜色代码，可以使用下面的表达式。</p>
+<figure class="highlight leaf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^<span class="function"><span class="keyword">#</span><span class="params">([<span class="variable">A</span>-<span class="variable">Fa</span>-<span class="variable">f0</span>-9]&#123;6&#125;|[<span class="variable">A</span>-<span class="variable">Fa</span>-<span class="variable">f0</span>-9]&#123;3&#125;)</span></span>$</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>提取网页图片<br>假若你想提取网页中所有图片信息，可以利用下面的表达式。</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">\\</span>&lt; *[img][^<span class="symbol">\\</span><span class="symbol">\\</span>&gt;]*[src] *= *[<span class="symbol">\\</span>"<span class="symbol">\\</span>']&#123;0,1&#125;([^<span class="symbol">\\</span>"<span class="symbol">\\</span>'<span class="symbol">\\</span> &gt;]*)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>提取页面超链接<br>提取 html 中的超链接。</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">(&lt;a\\s*(?!.*\\brel=)</span>[^&gt;]*)<span class="comment">(href="https?:\\/\\/)</span><span class="comment">((?!(?:(?:www\\.)</span>?<span class="string">'.implode('</span>|<span class="comment">(?:www\\.)</span>?<span class="string">', $follow_list).'</span>))[^<span class="string">"]+)"</span><span class="comment">((?!.*\\brel=)</span>[^&gt;]*)<span class="comment">(?:[^&gt;]*)</span>&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查找 CSS 属性<br>通过下面的表达式，可以搜索到相匹配的 CSS 属性。</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^<span class="symbol">\\</span>s*[a-zA-Z<span class="symbol">\\</span>-]+<span class="symbol">\\</span>s*[:]&#123;1&#125;<span class="symbol">\\</span>s[a-zA-Z0-9<span class="symbol">\\</span>s.#]+[;]&#123;1&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>抽取注释<br>如果你需要移除 HMTL 中的注释，可以使用如下的表达式。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--(.*?)--&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>匹配 HTML 标签<br>通过下面的表达式可以匹配出 HTML 中的标签属性。</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="symbol">\\</span>/?<span class="symbol">\\</span>w+((<span class="symbol">\\</span>s+<span class="symbol">\\</span>w+(<span class="symbol">\\</span>s*=<span class="symbol">\\</span>s*(?:".*?"|'.*?'|[<span class="symbol">\\</span>^'"&gt;<span class="symbol">\\</span>s]+))?)+<span class="symbol">\\</span>s*|<span class="symbol">\\</span>s*)<span class="symbol">\\</span>/?&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-meta">本文作者: </span><span class="post-copyright-info"><a href="mailto:15757856604@163.com">吕钒</a></span></div><div class="post-copyright-type"><span class="post-copyright-meta">本文链接: </span><span class="post-copyright-info"><a href="https://www.lvfan.xyz/2018/06/11/前端资料-JavaScript-2018-06-11-正则表达式/">https://www.lvfan.xyz/2018/06/11/前端资料-JavaScript-2018-06-11-正则表达式/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.lvfan.xyz">吕钒的后花园</a>！</span></div></div></article><div id="pagination"><div class="prev-post pull-left"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2018/06/11/前端资料-JavaScript-2018-06-11-JavaScript中的数组与伪数组的区别/"><i class="fas fa-angle-left">&nbsp;</i><span>JavaScript中的数组与伪数组的区别</span></a></div><div class="next-post pull-right"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2018/06/05/前端资料-HTML-2018-06-05-canvas/"><span>canvas</span><span>&nbsp;</span><i class="fas fa-angle-right"></i></a></div></div><!--div!= paginator()--></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fas fa-file-o"></i></span><span id="busuanzi_value_page_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2019 By 吕钒</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>
