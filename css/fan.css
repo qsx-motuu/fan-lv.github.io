@@ -1540,6 +1540,7 @@ body .button-hover:hover::before {
     transition: all 0.5s;
   }
   #recent-posts .recent-post-item {
+    position: relative;
     display: flex;
     flex-direction: column;
     margin: 32px 0;
@@ -1551,6 +1552,14 @@ body .button-hover:hover::before {
   #recent-posts .recent-post-item:hover {
     box-shadow: 0 0 24px rgba(0,0,0,0.5);
     transition: all 0.5s;
+  }
+  #recent-posts .recent-post-item .article-top {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 48px;
+    height: 48px;
+    background: url("../../images/top.svg") top right/48px 48px no-repeat;
   }
   #recent-posts .recent-post-item .post-title {
     position: relative;
@@ -1772,6 +1781,31 @@ body .button-hover:hover::before {
     width: 6px;
     height: 6px;
     border-radius: 50%;
+  }
+  #sidebar .author-info .friend-link {
+    margin-top: 24px;
+  }
+  #sidebar .author-info .friend-link .friend-link-text {
+    position: relative;
+    display: block;
+    padding: 12px 0;
+    font-size: 14px;
+    text-align: center;
+    transition: all 0.5s;
+  }
+  #sidebar .author-info .friend-link .friend-link-text:hover {
+    color: #e67700;
+    transition: all 0.5s;
+  }
+  #sidebar .author-info .friend-link .friend-link-text:not(:last-child):after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: rgba(255,255,255,0.1);
   }
   #sidebar .author-info-articles {
     display: flex;
@@ -3517,6 +3551,7 @@ body .button-hover:hover::before {
     transition: all 0.5s;
   }
   #recent-posts .recent-post-item {
+    position: relative;
     display: flex;
     flex-direction: column;
     margin: 32px 0;
@@ -3528,6 +3563,14 @@ body .button-hover:hover::before {
   #recent-posts .recent-post-item:hover {
     box-shadow: 0 0 24px rgba(0,0,0,0.5);
     transition: all 0.5s;
+  }
+  #recent-posts .recent-post-item .article-top {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 48px;
+    height: 48px;
+    background: url("../../images/top.svg") top right/48px 48px no-repeat;
   }
   #recent-posts .recent-post-item .post-title {
     position: relative;
@@ -3749,6 +3792,31 @@ body .button-hover:hover::before {
     width: 6px;
     height: 6px;
     border-radius: 50%;
+  }
+  #sidebar .author-info .friend-link {
+    margin-top: 24px;
+  }
+  #sidebar .author-info .friend-link .friend-link-text {
+    position: relative;
+    display: block;
+    padding: 12px 0;
+    font-size: 14px;
+    text-align: center;
+    transition: all 0.5s;
+  }
+  #sidebar .author-info .friend-link .friend-link-text:hover {
+    color: #e67700;
+    transition: all 0.5s;
+  }
+  #sidebar .author-info .friend-link .friend-link-text:not(:last-child):after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: rgba(255,255,255,0.1);
   }
   #sidebar .author-info-articles {
     display: flex;
